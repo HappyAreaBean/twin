@@ -20,8 +20,12 @@ const useStyles = makeStyles((theme) => ({
 const TopAppBar = () => {
   const classes = useStyles();
   const { theme, setTheme } = useGlobalSettings();
+  const { themeOverrided, setThemeOverrided } = useGlobalSettings();
 
-  const toggleTheme = () => setTheme(theme === 1 ? 0 : 1);
+  const toggleTheme = () => {
+    setThemeOverrided(themeOverrided === 1 ? 0 : 1);
+    setTheme(theme === 1 ? 0 : 1);
+  };
 
   return (
     <div className={classes.root}>

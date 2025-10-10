@@ -1,12 +1,13 @@
 import { CssBaseline } from "@material-ui/core";
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Editor from "components/Editor/Editor";
 import Home from "components/Home/Home";
 import Migration from "components/Migration/Migration";
 import Saved from "components/Saved/Saved";
 import { useGlobalSettings } from "hooks/useGlobalSettings";
 import { SnackbarProvider } from "notistack";
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import ThemeColor from "./ThemeColor";
 
@@ -44,7 +45,16 @@ const THEMES = [
 ];
 
 const App = () => {
-  const { theme } = useGlobalSettings();
+  const { theme, setTheme } = useGlobalSettings();
+  const { themeOverrided } = useGlobalSettings();
+  const isPreferDark = useMediaQuery("(prefers-color-scheme: dark)");
+
+  useEffect(() => {
+    if (!themeOverrided && isPreferDark) {
+      setTheme(1);
+    }
+  });
+
   return (
     <MuiThemeProvider theme={THEMES[theme]}>
       <SnackbarProvider
