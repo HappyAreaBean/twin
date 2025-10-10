@@ -1,0 +1,25 @@
+services:
+  nginx:
+    image: nginx:stable-alpine
+    ports:
+      - "5443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./certs:/etc/nginx/certs:ro
+  backend:
+    image: happyareabean/twin-backend:latest
+    build:
+      context: "./backend"
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend.js:/app/config.js
+      - twin-backend-upload:/app/upload
+  frontend:
+    image: happyareabean/twin-frontend:latest
+    build: "./frontend"
+    ports:
+      - "3000:80"
+volumes:
+  twin-backend-upload:
+    driver: local

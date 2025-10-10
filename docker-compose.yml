@@ -1,0 +1,18 @@
+services:
+  backend:
+    image: happyareabean/twin-backend:latest
+    build:
+      context: "./backend"
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend.js:/app/config.js
+      - twin-backend-upload:/app/upload
+  frontend:
+    image: happyareabean/twin-frontend:latest
+    build: "./frontend"
+    ports:
+      - "3000:80"
+volumes:
+  twin-backend-upload:
+    driver: local
