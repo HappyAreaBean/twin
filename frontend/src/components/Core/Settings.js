@@ -40,10 +40,14 @@ const Settings = () => {
     setPreviewLanguage,
   } = useEditorSettings();
   const { theme, setTheme } = useGlobalSettings();
+  const { themeOverrided, setThemeOverrided } = useGlobalSettings();
   const classes = useStyles();
 
   const closeSettings = () => setSettingsOpen(false);
-  const toggleTheme = () => setTheme(theme === 1 ? 0 : 1);
+  const toggleTheme = () => {
+    setThemeOverrided(themeOverrided === 1 ? 0 : 1);
+    setTheme(theme === 1 ? 0 : 1);
+  };
   const changePreviewLanguage = (evt) => setPreviewLanguage(evt.target.value);
 
   return (
