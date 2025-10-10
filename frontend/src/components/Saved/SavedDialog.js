@@ -1,11 +1,13 @@
 import { Button, Paper, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import HomeIcon from "@material-ui/icons/Home";
+import AddIcon from "@material-ui/icons/Add";
 import ClipboardText from "mdi-material-ui/ClipboardText";
 import { useSnackbar } from "notistack";
 import React from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { useHistory } from "react-router-dom";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,6 +42,18 @@ const SavedDialog = ({ configId }) => {
   const redirectToHomePage = () => replace("/");
   const showCopySnackbar = () => enqueueSnackbar("Copied to clipboard!", { variant: "info" });
 
+  async function ContinueEditing() {
+    try {
+      const response = await axios.get(`/api/v1/continue/${configId}`);
+      replace(`/${response.data.id}`, { configId: response.data.id });
+    } catch (ex) {
+      replace({
+        pathname: "/",
+        state: { error: true },
+      });
+    }
+  }
+
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
@@ -71,6 +85,14 @@ const SavedDialog = ({ configId }) => {
               className={classes.button}>
               <HomeIcon />
               Back Home
+            </Button>
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={ContinueEditing}
+              className={classes.button}>
+              <AddIcon />
+              Continue Editing
             </Button>
           </div>
         </div>

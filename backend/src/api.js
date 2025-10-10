@@ -5,11 +5,12 @@ import { fileURLToPath } from "url";
 import database from "./database.js";
 import { logger } from "./logger.js";
 import { addFile, UPLOAD_DIR } from "./storage.js";
+import { continueEdit } from "./continueEdit.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 let config = {};
-let staticConfigs = {};
+export let staticConfigs = {};
 
 const getConfig = async (req, res) => {
   try {
@@ -85,6 +86,7 @@ export const setupRoutes = (route, conf) => {
   );
 
   route.get("/get/:id", getConfig);
+  route.get("/continue/:id", continueEdit);
   route.post("/upload", upload(false));
   route.post("/save", upload(true));
 
