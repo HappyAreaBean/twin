@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { fade } from "@material-ui/core/styles/colorManipulator";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
+import PreviewLanguageButton from "./PreviewLanguageButton.js";
 import TopAppBarButtons from "components/Editor/Dashboard/TopAppBar/TopAppBarButtons";
 import { useEditorSettings } from "hooks/useEditorSettings";
 import React from "react";
@@ -103,6 +104,7 @@ const TopAppBar = () => {
               onChange={onChange}
             />
           </div>
+          <PreviewLanguageButton />
           <div className={classes.grow} />
           <TopAppBarButtons />
         </Toolbar>
