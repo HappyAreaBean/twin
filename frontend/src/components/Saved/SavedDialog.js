@@ -8,7 +8,6 @@ import { useSnackbar } from "notistack";
 import React from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { useHistory } from "react-router-dom";
-import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -51,8 +50,12 @@ const SavedDialog = ({ configId }) => {
 
   async function ContinueEditing() {
     try {
-      const response = await axios.get(`/api/v1/continue/${configId}`);
-      replace(`/${response.data.id}`, { configId: response.data.id });
+      const response = await fetch(`/api/v1/continue/${configId}`);
+      if (!response.ok) {
+        throw new Error("non-200 code response");
+      }
+      const data = await response.json();
+      replace(`/${data.id}`, { configId: data.id });
     } catch (ex) {
       replace({
         pathname: "/",
