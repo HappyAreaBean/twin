@@ -1,5 +1,6 @@
 {
   "lockfileVersion": 1,
+  "configVersion": 0,
   "workspaces": {
     "": {
       "name": "twin",
@@ -7,7 +8,6 @@
         "@material-ui/core": "^4.12.4",
         "@material-ui/icons": "^4.11.3",
         "@material-ui/lab": "^4.0.0-alpha.61",
-        "axios": "^0.20.0",
         "caniuse-lite": "^1.0.30001751",
         "classnames": "^2.5.1",
         "fuse-immutable": "^2.0.0",
@@ -561,8 +561,6 @@
     "aws-sign2": ["aws-sign2@0.7.0", "", {}, "sha1-tG6JCTSpWR8tL2+G1+ap8bP+dqg="],
 
     "aws4": ["aws4@1.10.1", "", {}, "sha512-zg7Hz2k5lI8kb7U32998pRRFin7zJlkfezGJjUc2heaD4Pw2wObakCDVzkKztTm/Ln7eiVvYsjqak0Ed4LkMDA=="],
-
-    "axios": ["axios@0.20.0", "", { "dependencies": { "follow-redirects": "^1.10.0" } }, "sha512-ANA4rr2BDcmmAQLOKft2fufrtuvlqR+cXNNinUmvfeSNCOF98PZL+7M/v1zIdGo7OLjEA9J2gXJL+j4zGsl0bA=="],
 
     "axobject-query": ["axobject-query@2.2.0", "", {}, "sha512-Td525n+iPOOyUQIeBfcASuG6uJsDOITl7Mds5gFyerkWiX7qhUTdYUBlSgNMyVqtSJqwpt1kXGLdUt6SykLMRA=="],
 
