@@ -1,0 +1,40 @@
+services:
+  db:
+    image: postgres:18
+    restart: unless-stopped
+    shm_size: 128mb
+    environment:
+      POSTGRES_USER: triton
+      POSTGRES_PASSWORD: CHANGEME
+      POSTGRES_DB: twin
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    volumes:
+      - twin-db-data:/var/lib/postgresql
+  backend:
+    image: docker.io/happyareabean/twin-backend:latest
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./config.js:/app/config.js
+      - twin-backend-upload:/app/upload
+  frontend:
+    image: docker.io/happyareabean/twin-frontend:latest
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
+volumes:
+  twin-backend-upload:
+    driver: local
+  twin-db-data:
+    driver: local
